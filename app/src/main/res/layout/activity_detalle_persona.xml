@@ -19,14 +19,17 @@
         >
 
         <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:toolbarId="@+id/toolbar"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:contentScrim="?attr/colorPrimary"
             android:fitsSystemWindows="true"
-            app:expandedTitleMarginStart="48dp"
+            app:collapsedTitleTextAppearance="@color/cardview_light_background"
+            app:contentScrim="?attr/colorPrimary"
             app:expandedTitleMarginEnd="64dp"
+            app:expandedTitleMarginStart="48dp"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:toolbarId="@+id/toolbar"
+            app:titleTextColor="@color/colorAccent"
             >
 
             <ImageView
@@ -40,10 +43,9 @@
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
-                android:layout_height="?attr/actionBarSize"
                 android:layout_width="match_parent"
-                app:layout_collapseMode="pin"
-                >
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin">
 
             </android.support.v7.widget.Toolbar>
         </android.support.design.widget.CollapsingToolbarLayout>
@@ -179,21 +181,23 @@
             android:id="@+id/menu_modificar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="modificar"
             android:src="@android:drawable/ic_menu_edit"
             app:fab_colorNormal="@color/colorAccent"
             app:fab_colorPressed="@color/colorAccent"
-            fab:fab_size="mini"
-            fab:fab_label="@string/modificar" />
+            fab:fab_label="@string/modificar"
+            fab:fab_size="mini" />
 
         <com.github.clans.fab.FloatingActionButton
             android:id="@+id/menu_eliminar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="eliminar"
             android:src="@android:drawable/ic_menu_delete"
             app:fab_colorNormal="@color/colorAccent"
             app:fab_colorPressed="@color/colorAccent"
-            fab:fab_size="mini"
-            fab:fab_label="@string/eliminar" />
+            fab:fab_label="@string/eliminar"
+            fab:fab_size="mini" />
 
     </com.github.clans.fab.FloatingActionMenu>
 
