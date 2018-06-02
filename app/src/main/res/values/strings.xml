@@ -22,4 +22,7 @@
     <string name="mensaje_eliminar">¿Está seguro que desea eliminar a esta persona?</string>
     <string name="eliminar_si">Si</string>
     <string name="eliminar_no">No</string>
+    <string name="mensaje_error_cedula_existente">La cédula ya se encuentra registrada</string>
+    <string name="mensaje_modificar">Persona Modificada Exitosamente</string>
+
 </resources>

@@ -25,6 +25,8 @@ public class Persona {
         this.sexo = sexo;
     }
 
+
+
     public Persona(String id){
         this.id = id;
     }

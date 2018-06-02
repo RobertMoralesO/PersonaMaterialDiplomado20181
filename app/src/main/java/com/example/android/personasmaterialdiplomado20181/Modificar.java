@@ -16,45 +16,59 @@ public class Modificar extends AppCompatActivity {
     private Spinner cmbSexo;
     private ArrayAdapter<String> adapter;
     private String opc[];
-    private String ced,nomb,apell,id;
-    private int sex,fot;
-
-
-
+    private Intent i;
+    private Bundle b;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_modificar);
 
-        txtCedula = findViewById(R.id.txtCedula);
-        txtNombre = findViewById(R.id.txtNombre);
-        txtApellido = findViewById(R.id.txtApellido);
-        cmbSexo = findViewById(R.id.cmbSexo);
+        txtCedula = findViewById(R.id.txtCedulaModificar);
+        txtNombre = findViewById(R.id.txtNombreModificar);
+        txtApellido = findViewById(R.id.txtApellidoModificar);
+        cmbSexo = findViewById(R.id.cmbSexoModificar);
 
         opc = this.getResources().getStringArray(R.array.sexo);
         adapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,opc);
         cmbSexo.setAdapter(adapter);
+
+        i = getIntent();
+        b = i.getBundleExtra("datos");
+
+        txtCedula.setText(b.getString("cedula"));
+        txtNombre.setText(b.getString("nombre"));
+        txtApellido.setText(b.getString("apellido"));
+        cmbSexo.setSelection(b.getInt("sexo"));
+
 
 
     }
 
     public void guardar(View v){
         String ced, nomb,apell, id;
-        int sexo, foto;
+        int foto, sexo;
 
-        id = Datos.getId();
+        id = b.getString("id");
         ced = txtCedula.getText().toString();
         nomb = txtNombre.getText().toString();
         apell = txtApellido.getText().toString();
         sexo = cmbSexo.getSelectedItemPosition();
-
+        foto = b.getInt("foto");
         Persona p = new Persona(id,foto,ced,nomb,apell,sexo);
-        p.guardar();
-
-        Snackbar.make(v,getResources().getString(R.string.mensaje_guardado),Snackbar.LENGTH_SHORT)
-                .setAction("Action",null).show();
-        limpiar();
-
+        if(b.getString("cedula").equals(ced)){
+            p.modificar();
+            Snackbar.make(v,getResources().getString(R.string.mensaje_modificar),Snackbar.LENGTH_SHORT)
+                    .setAction("Action",null).show();
+        }else{
+            if(Datos.validar_existencia(Datos.obtener(),ced)){
+                txtCedula.setError(getResources().getString(R.string.mensaje_error_cedula_existente));
+                txtCedula.requestFocus();
+            }else{
+                p.modificar();
+                Snackbar.make(v,getResources().getString(R.string.mensaje_modificar),Snackbar.LENGTH_SHORT)
+                        .setAction("Action",null).show();
+            }
+        }
     }
 
     public void limpiar(){

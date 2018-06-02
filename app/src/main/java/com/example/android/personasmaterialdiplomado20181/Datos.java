@@ -44,4 +44,11 @@ public class Datos {
         databaseReference.child(db).child(p.getId()).setValue(p);
     }
 
+    public static boolean validar_existencia(ArrayList<Persona> personas, String cedula){
+        for (int i =0; i< personas.size(); i++){
+            if(personas.get(i).getCedula().equals(cedula)) return true;
+        }
+        return false;
+    }
+
 }
