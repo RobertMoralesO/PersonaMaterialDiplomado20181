@@ -6,16 +6,19 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -33,6 +36,8 @@ public class Principal extends AppCompatActivity implements AdaptadorPersona.OnP
     private DatabaseReference databaseReference;
     private String bd = "Personas";
     private DrawerLayout drawerLayout;
+    private FirebaseAuth firebaseAuth;
+    private FirebaseAuth.AuthStateListener authStateListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +86,7 @@ public class Principal extends AppCompatActivity implements AdaptadorPersona.OnP
 
         drawerLayout = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle actionBarDrawerToggle =
-                new ActionBarDrawerToggle(this, drawerLayout,R.string.abrir,
+                new ActionBarDrawerToggle(this, drawerLayout,toolbar,R.string.abrir,
                         R.string.cerar);
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
@@ -89,6 +94,15 @@ public class Principal extends AppCompatActivity implements AdaptadorPersona.OnP
         if(navigationView != null){
             navigationView.setNavigationItemSelectedListener(Principal.this);
         }
+
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        authStateListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+
+            }
+        };
 
     }
 
@@ -118,6 +132,21 @@ public class Principal extends AppCompatActivity implements AdaptadorPersona.OnP
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        return false;
+       switch (item.getItemId()){
+           case R.id.salir:
+               signOut();
+               break;
+       }
+       item.isChecked();
+       drawerLayout.closeDrawer(GravityCompat.START);
+       return true;
+    }
+
+    public void signOut(){
+        firebaseAuth.signOut();
+        Intent i = new Intent(Principal.this,Login.class);
+        startActivity(i);
+        finish();
+
     }
 }
