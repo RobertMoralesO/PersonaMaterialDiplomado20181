@@ -31,5 +31,9 @@
     <string name="Ingresar">Ingresar</string>
     <string name="crear">Crear</string>
     <string name="email">Email</string>
-
+    <string name="mensaje_usuario_creado">Usuario creado exitosamente!</string>
+    <string name="principal">Principal</string>
+    <string name="salir">Salir</string>
+    <string name="abrir">Abrir</string>
+    <string name="cerar">Cerar</string>
 </resources>
