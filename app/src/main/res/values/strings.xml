@@ -24,5 +24,12 @@
     <string name="eliminar_no">No</string>
     <string name="mensaje_error_cedula_existente">La cédula ya se encuentra registrada</string>
     <string name="mensaje_modificar">Persona Modificada Exitosamente</string>
+    <string name="mensaje_seleccion_foto">Seleccione la foto</string>
+    <string name="usuario">Usuario</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="Ingresar">Ingresar</string>
+    <string name="crear">Crear</string>
+    <string name="email">Email</string>
 
 </resources>

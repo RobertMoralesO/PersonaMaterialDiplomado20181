@@ -19,6 +19,14 @@
             android:textSize="20sp"
             android:textStyle="bold" />
 
+    <ImageView
+        android:id="@+id/foto"
+        android:layout_width="204dp"
+        android:layout_height="80dp"
+        android:layout_gravity="center_horizontal"
+        android:onClick="seleccionar_foto"
+        app:srcCompat="@android:drawable/ic_menu_gallery" />
+
     <android.support.design.widget.TextInputLayout
         android:id="@+id/cajaCedula"
         android:layout_width="match_parent"

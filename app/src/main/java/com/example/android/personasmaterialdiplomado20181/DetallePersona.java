@@ -2,6 +2,7 @@ package com.example.android.personasmaterialdiplomado20181;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +10,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
 
 public class DetallePersona extends AppCompatActivity {
     private TextView lblCedula;
@@ -20,8 +26,9 @@ public class DetallePersona extends AppCompatActivity {
     private Intent i;
     private ImageView foto;
     private CollapsingToolbarLayout collapsingToolbarLayout;
-    private String ced,nomb,apell,id;
-    private int sex,fot;
+    private String ced,nomb,apell,id,fot;
+    private int sex;
+    private StorageReference storageReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,13 +42,14 @@ public class DetallePersona extends AppCompatActivity {
         foto = findViewById(R.id.fotoPersona);
         collapsingToolbarLayout = findViewById(R.id.layout);
         sexo = getResources().getStringArray(R.array.sexo);
+        storageReference = FirebaseStorage.getInstance().getReference();
         i = getIntent();
         bundle = i.getBundleExtra("datos");
 
         ced = bundle.getString("cedula");
         nomb = bundle.getString("nombre");
         apell = bundle.getString("apellido");
-        fot = bundle.getInt("foto");
+        fot = bundle.getString("foto");
         sex = bundle.getInt("sexo");
         id = bundle.getString("id");
 
@@ -50,7 +58,15 @@ public class DetallePersona extends AppCompatActivity {
         lblApellido.setText(apell);
         lblSexo.setText(sexo[sex]);
 
-        foto.setImageResource(fot);
+        //foto.setImageResource(fot);
+
+        storageReference.child(fot).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Picasso.get().load(fot).into(foto);
+            }
+        });
+
         collapsingToolbarLayout.setTitle(nomb+" "+apell);
 
 

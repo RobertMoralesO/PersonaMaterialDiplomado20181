@@ -1,11 +1,17 @@
 package com.example.android.personasmaterialdiplomado20181;
 
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -31,9 +37,18 @@ public class AdaptadorPersona extends RecyclerView.Adapter<AdaptadorPersona.Pers
     }
 
     @Override
-    public void onBindViewHolder(PersonaViewHolder holder, int position) {
+    public void onBindViewHolder(final PersonaViewHolder holder, int position) {
        final  Persona p = personas.get(position);
-       holder.foto.setImageResource(p.getFoto());
+        StorageReference storageReference = FirebaseStorage.getInstance().getReference();
+        storageReference.child(p.getFoto()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Picasso.get().load(uri).into(holder.foto);
+            }
+        });
+
+
+       //holder.foto.setImageResource(p.getFoto());
        holder.cedula.setText(p.getCedula());
        holder.nombre.setText(p.getNombre());
        holder.apellido.setText(p.getApellido());

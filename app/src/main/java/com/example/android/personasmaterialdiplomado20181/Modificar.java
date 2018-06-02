@@ -45,15 +45,16 @@ public class Modificar extends AppCompatActivity {
     }
 
     public void guardar(View v){
-        String ced, nomb,apell, id;
-        int foto, sexo;
+        String ced, nomb,apell, foto,id;
+        int  sexo;
 
         id = b.getString("id");
         ced = txtCedula.getText().toString();
         nomb = txtNombre.getText().toString();
         apell = txtApellido.getText().toString();
         sexo = cmbSexo.getSelectedItemPosition();
-        foto = b.getInt("foto");
+        //foto = b.getInt("foto");
+        foto ="";
         Persona p = new Persona(id,foto,ced,nomb,apell,sexo);
         if(b.getString("cedula").equals(ced)){
             p.modificar();
